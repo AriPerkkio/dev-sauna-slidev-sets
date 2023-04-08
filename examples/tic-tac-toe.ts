@@ -1,22 +1,24 @@
 /* Typings */
 type TicTacToe<
-  InitBoard extends Board,
-  NextMove extends Turn | undefined = undefined
-> = NextMove extends Turn
-  ? Move<InitBoard, NextMove> extends infer NextBoard
-    ? NextBoard extends Board
-      ? CheckWin<NextBoard, "X"> extends true
-        ? "X wins!"
-        : CheckWin<NextBoard, "O"> extends true
-        ? "O wins!"
-        : CheckDraw<NextBoard> extends true
-        ? "It's draw!"
-        : NextRound<NextBoard> // It's valid move without win or draw
-      : NextBoard // It's invalid move, this will be error
-    : "Unexpected error #001"
-  : InitBoard; // Just initial without move
+  InitialBoard extends Board, // TODO: FirstMoveOrNextBoard
+  Moves extends Turn[] = []
+> =
+  Moves extends [infer NextMove, ...infer NextMoves] ?
+    NextMove extends Turn ?
+      Move<InitialBoard, NextMove> extends infer NextBoard ?
+        NextBoard extends Board ?
+          CheckWin<NextBoard, "X"> extends true ? "X wins!"
+            : CheckWin<NextBoard, "O"> extends true ? "O wins!"
+              : CheckDraw<NextBoard> extends true ? "It's draw!"
+              // It's valid move without win or draw
+              : NextMoves extends Turn[] ?
+                TicTacToe<NextBoard, NextMoves>
+                : TicTacToe<NextBoard>
+        : NextBoard // It's invalid move, this will be error
+      : "Unexpected error #001"
+    : "Unexpected error #002"
+  : InitialBoard; // Just initial without move
 
-type NextRound<TODO> = TODO;
 
 type Move<
   CurrentBoard extends Board = Board,
@@ -74,11 +76,6 @@ type AppendString<
 function makeMove<B extends Board, T extends Turn>(_: B, __: T): Move<B, T> {
   return "" as any;
 }
-function play(): TicTacToe<
-  [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
-> {
-  return "" as any;
-}
 
 /* Tests */
 function Equals<Expected, Actual extends Expected>(_: Expected, __: Actual) {}
@@ -111,13 +108,60 @@ Equals(
   "Invalid move, cell used already: X"
 );
 
-type State1 = TicTacToe<[[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]>;
-type State2 = TicTacToe<State1, { mark: "X"; row: 0; cell: 0 }>;
-type State3 = TicTacToe<State2, { mark: "O"; row: 1; cell: 0 }>;
-type State4 = TicTacToe<State3, { mark: "X"; row: 0; cell: 1 }>;
-type State5 = TicTacToe<State4, { mark: "O"; row: 1; cell: 1 }>;
-type State6 = TicTacToe<State5, { mark: "X"; row: 0; cell: 2 }>;
-Equals<State6, "X wins!">;
-
+Equals<
+  TicTacToe<
+    [
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "]
+    ],
+    [
+      { mark: "X"; row: 0; cell: 0 },
+      { mark: "O"; row: 1; cell: 0 },
+      { mark: "X"; row: 0; cell: 1 },
+      { mark: "O"; row: 1; cell: 1 },
+      { mark: "X"; row: 0; cell: 2 }
+    ]
+  >,
+  "X wins!"
+>;
 Equals<CheckDraw<[["X", "O", "X"], ["O", "O", "X"], ["X", "X", "O"]]>, true>;
 Equals<CheckDraw<[[" ", "X", "X"], ["O", "O", "X"], ["O", "X", "O"]]>, false>;
+
+Equals<
+  TicTacToe<
+    [
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "]
+    ],
+    [
+      { mark: "X"; row: 0; cell: 0 },
+      { mark: "O"; row: 1; cell: 0 },
+      { mark: "X"; row: 0; cell: 1 },
+      { mark: "O"; row: 1; cell: 1 },
+      { mark: "X"; row: 0; cell: 2 }
+    ]
+  >,
+  "X wins!"
+>;
+
+Equals<
+  TicTacToe<
+    [
+      [" ", " ", " "],
+      [" ", " ", " "],
+      [" ", " ", " "]
+    ],
+    [
+      { mark: "X"; row: 0; cell: 0 },
+      { mark: "O"; row: 1; cell: 0 },
+      { mark: "X"; row: 0; cell: 1 },
+    ]
+  >,
+  [
+    ["X", "X", " "],
+    ["O", " ", " "],
+    [" ", " ", " "]
+  ]
+>;
