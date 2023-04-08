@@ -9,7 +9,9 @@ type TicTacToe<
         ? "X wins!"
         : CheckWin<NextBoard, "O"> extends true
         ? "O wins!"
-        : NextRound<NextBoard> // It's valid move without wins
+        : CheckDraw<NextBoard> extends true
+        ? "It's draw!"
+        : NextRound<NextBoard> // It's valid move without win or draw
       : NextBoard // It's invalid move, this will be error
     : "Unexpected error #001"
   : InitBoard; // Just initial without move
@@ -48,6 +50,12 @@ type CheckWin<CurrentBoard extends Board, Mark> =
   CurrentBoard[number][2] extends Mark ? true :
   // Diagonal, TODO
   false;
+
+type CheckDraw<CurrentBoard extends Board> = CurrentBoard[Index][Index] extends
+  | "X"
+  | "O"
+  ? true
+  : false;
 
 type Empty = " ";
 type Cell = "X" | "O" | Empty;
@@ -110,3 +118,6 @@ type State4 = TicTacToe<State3, { mark: "X"; row: 0; cell: 1 }>;
 type State5 = TicTacToe<State4, { mark: "O"; row: 1; cell: 1 }>;
 type State6 = TicTacToe<State5, { mark: "X"; row: 0; cell: 2 }>;
 Equals<State6, "X wins!">;
+
+Equals<CheckDraw<[["X", "O", "X"], ["O", "O", "X"], ["X", "X", "O"]]>, true>;
+Equals<CheckDraw<[[" ", "X", "X"], ["O", "O", "X"], ["O", "X", "O"]]>, false>;
