@@ -56,7 +56,7 @@ type ReplaceCell<Cells extends Row, Move extends Turn> =
     ? [Cells[0], Move["mark"], Cells[2]]
   : [Cells[0], Cells[1], Move["mark"]];
 
-type CheckWin<CurrentBoard extends Board, Mark> =
+type CheckWin<CurrentBoard extends Board, Mark extends ValidMark> =
   // Horizontal
   CurrentBoard[0][number] extends Mark ? true :
   CurrentBoard[1][number] extends Mark ? true :
@@ -66,10 +66,29 @@ type CheckWin<CurrentBoard extends Board, Mark> =
   CurrentBoard[number][1] extends Mark ? true :
   CurrentBoard[number][2] extends Mark ? true :
   // Diagonal
-    CurrentBoard[0][0] extends CurrentBoard[1][1] ? CurrentBoard[2][2] extends Mark ? true :
-    CurrentBoard[0][2] extends CurrentBoard[1][1] ? CurrentBoard[2][0] extends Mark ? true :
-    false : false :
-  false;
+  CellsEqualsMark<
+    CurrentBoard[0][0], // [X][ ][ ]
+    CurrentBoard[1][1], // [ ][X][ ]
+    CurrentBoard[2][2], // [ ][ ][X]
+    Mark> extends true ? true :
+  CellsEqualsMark<
+    CurrentBoard[0][2], // [ ][ ][X]
+    CurrentBoard[1][1], // [ ][X][ ]
+    CurrentBoard[2][0], // [X][ ][ ]
+    Mark
+  > extends true ? true
+  : false;
+
+type CellsEqualsMark<
+  Cell1 extends Cell,
+  Cell2 extends Cell,
+  Cell3 extends Cell,
+  Mark extends ValidMark
+> =
+  Cell1 extends Mark ?
+  Cell2 extends Mark ?
+  Cell3 extends Mark ? true
+  : false : false : false;
 
 type CheckDraw<CurrentBoard extends Board> =
   CurrentBoard[number][number] extends "X" | "O"
@@ -168,3 +187,27 @@ Equals<
   ]>,
   "It's a draw!"
 >;
+
+/* Debug */
+function Debug<
+  B extends Board | string,
+  Row1 extends Row = B extends string ? Row : B[0],
+  Row2 extends Row = B extends string ? Row : B[1],
+  Row3 extends Row = B extends string ? Row : B[2],
+>(): {
+  board: B extends Board ? {
+    1: `[${Row1[0]}][${Row1[1]}][${Row1[2]}]`,
+    2: `[${Row2[0]}][${Row2[1]}][${Row2[2]}]`,
+    3: `[${Row3[0]}][${Row3[1]}][${Row3[2]}]`,
+  } : B
+} { return 0 as any; }
+
+Debug<
+  TicTacToe<[
+    { mark: "X"; row: 0; cell: 0 },
+    { mark: "O"; row: 1; cell: 0 },
+    { mark: "X"; row: 1; cell: 1 },
+    { mark: "O"; row: 2; cell: 0 },
+    //{ mark: "X"; row: 2; cell: 2 },
+  ]>
+>().board;
