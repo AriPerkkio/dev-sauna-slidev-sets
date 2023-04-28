@@ -1,0 +1,6 @@
+{
+  "name": "example-types",
+  "version": "0.0.0",
+  "type": "module",
+  "types": "./index.ts"
+}

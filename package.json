@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "slidev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -11,5 +12,15 @@
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.0.3"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.40.14",
+    "@slidev/theme-default": "^0.21.2",
+    "example-types": "*"
+  },
+  "pnpm": {
+    "overrides": {
+      "example-types": "link:./types"
+    }
   }
 }
