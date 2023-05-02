@@ -3,10 +3,15 @@ lockfileVersion: '6.0'
 overrides:
   example-types: link:./types
 
+patchedDependencies:
+  '@slidev/cli@0.40.16':
+    hash: a53stzchrmu3p273saucptgjli
+    path: patches/@slidev__cli@0.40.16.patch
+
 dependencies:
   '@slidev/cli':
-    specifier: ^0.40.14
-    version: 0.40.14(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0)
+    specifier: ^0.40.16
+    version: 0.40.16(patch_hash=a53stzchrmu3p273saucptgjli)(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0)
   '@slidev/theme-default':
     specifier: ^0.21.2
     version: 0.21.2
@@ -766,8 +771,8 @@ packages:
       picomatch: 2.3.1
     dev: false
 
-  /@slidev/cli@0.40.14(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0):
-    resolution: {integrity: sha512-fZ2kNyLaa6cJMn0409d8QWEa7rBnXdGCVkPp98WSljPyn+AzpXhkvQ50d4uRaCm4CuJpl6KlN7HXmLqGFSf85A==}
+  /@slidev/cli@0.40.16(patch_hash=a53stzchrmu3p273saucptgjli)(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0):
+    resolution: {integrity: sha512-zVhqU966lNBHuPq8uoYzzSqkoNOPmNUhgZplclEtWOEZ6bh6EBxp+vqZ8S9Q18fWYGJfZRDYsYQZxyLeHkD2dA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     peerDependencies:
@@ -781,9 +786,9 @@ packages:
       '@iconify-json/carbon': 1.1.16
       '@iconify-json/ph': 1.1.5
       '@lillallol/outline-pdf': 4.0.0
-      '@slidev/client': 0.40.14(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0)(vite@4.3.3)
-      '@slidev/parser': 0.40.14
-      '@slidev/types': 0.40.14
+      '@slidev/client': 0.40.16(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0)(vite@4.3.3)
+      '@slidev/parser': 0.40.16
+      '@slidev/types': 0.40.16
       '@vitejs/plugin-vue': 4.2.1(vite@4.3.3)(vue@3.2.47)
       '@vitejs/plugin-vue-jsx': 3.0.1(vite@4.3.3)(vue@3.2.47)
       '@windicss/config': 1.8.10
@@ -852,14 +857,15 @@ packages:
       - vue-template-compiler
       - vue-template-es2015-compiler
     dev: false
+    patched: true
 
-  /@slidev/client@0.40.14(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0)(vite@4.3.3):
-    resolution: {integrity: sha512-i0jl8JbEL88wpNhQkt1vdfGFjqazKiy4hdTAcn+iQVr2j9Ty4LQEHXBU9tl8oMs7o1K3Xacxye1rqF4es8GnTg==}
+  /@slidev/client@0.40.16(postcss@8.4.23)(react-dom@16.14.0)(react@16.14.0)(vite@4.3.3):
+    resolution: {integrity: sha512-GA9bi4o85R7TY3TzhoDiIuKxiAOQp66JRdDb7bqNu1ooKmk4h2dNT6ZtpvT9AWNjs8oFg5PZ1iJQcfnODExb+A==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@antfu/utils': 0.7.2
-      '@slidev/parser': 0.40.14
-      '@slidev/types': 0.40.14
+      '@slidev/parser': 0.40.16
+      '@slidev/types': 0.40.16
       '@unocss/reset': 0.51.8
       '@vueuse/core': 10.1.0(vue@3.2.47)
       '@vueuse/head': 1.1.26(vue@3.2.47)
@@ -896,11 +902,11 @@ packages:
       - vite
     dev: false
 
-  /@slidev/parser@0.40.14:
-    resolution: {integrity: sha512-VsKW2uCl7ZTwRzLy4g8J9myd+GMZjg4C4Y58ZPw8I6YpwZemlIqmqp532IlBkOmigb7M5lQAOQ3bgcuqTzHdgA==}
+  /@slidev/parser@0.40.16:
+    resolution: {integrity: sha512-mINHg2vXMOaJ+8zK5SB4M39x/PIB5/XWdKxnvszoQ7JPrX+V5+LPJq7dCBDlShcVCifpLhuZiueltoHC7w1aaw==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      '@slidev/types': 0.40.14
+      '@slidev/types': 0.40.16
       js-yaml: 4.1.0
     dev: false
 
@@ -919,8 +925,8 @@ packages:
     engines: {node: '>=14.0.0'}
     dev: false
 
-  /@slidev/types@0.40.14:
-    resolution: {integrity: sha512-Rd/m9SFQCUcsTV+1CsN7U4OMBbt3qryjvcxWNK+7TIFsZkKgMHV7qorYt8TgMu4ChaXtYJdMA2zg4oGTvtkvGg==}
+  /@slidev/types@0.40.16:
+    resolution: {integrity: sha512-gJ2kgbln/RoYct6n3umDLmyI6xqPQZgGa4n6sltsXiOfWASDMfI5hoWvhpKsio3Wegw4uvBdbQ8zO4rofIKcmQ==}
     engines: {node: '>=14.0.0'}
     dev: false
 

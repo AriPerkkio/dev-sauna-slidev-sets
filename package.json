@@ -14,13 +14,16 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
-    "@slidev/cli": "^0.40.14",
+    "@slidev/cli": "^0.40.16",
     "@slidev/theme-default": "^0.21.2",
     "example-types": "*"
   },
   "pnpm": {
     "overrides": {
       "example-types": "link:./types"
+    },
+    "patchedDependencies": {
+      "@slidev/cli@0.40.16": "patches/@slidev__cli@0.40.16.patch"
     }
   }
 }
