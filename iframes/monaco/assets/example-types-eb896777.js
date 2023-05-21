@@ -1,4 +1,4 @@
-import{l as e}from"./index-c20dfc99.js";import"./editorWorker-9b9b83cf.js";const n=`
+import{l as e}from"./index-e6d9d209.js";import"./editorWorker-9b9b83cf.js";const n=`
 export interface User {
   name: string;
   id: string;
