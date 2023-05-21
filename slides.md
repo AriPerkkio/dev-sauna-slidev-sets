@@ -1,3 +1,7 @@
+---
+monaco: true
+---
+
 # Typescript Type System
 
 <div class="mt-20 flex">
